@@ -1,0 +1,110 @@
+{
+  "name": "cpi",
+  "displayName": "CPI",
+  "description": "FSRS-based competitive programming problem review for VS Code.",
+  "version": "0.0.2",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*",
+    "onStartupFinished",
+    "onView:cpi.reviewView",
+    "onCommand:cpi.refresh",
+    "onCommand:cpi.undoLastReview"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cpi.refresh",
+        "title": "CPI: Refresh Problemset"
+      },
+      {
+        "command": "cpi.undoLastReview",
+        "title": "CPI: Undo Last Review"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "cpi",
+          "title": "CPI",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "cpi": [
+        {
+          "type": "webview",
+          "id": "cpi.reviewView",
+          "name": "Review"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CPI",
+      "properties": {
+        "cpi.problemsetPath": {
+          "type": "string",
+          "default": "",
+          "description": "Problemset folder path. Empty means the current workspace root."
+        },
+        "cpi.autoOpenCpp": {
+          "type": "boolean",
+          "default": true,
+          "description": "Create and open a C++ review file for normal reviews."
+        },
+        "cpi.openMarkdownPreviewToSide": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open the rendered Markdown problem preview to the side."
+        },
+        "cpi.templateCppPath": {
+          "type": "string",
+          "default": "",
+          "description": "Default template.cpp path used when creating review C++ files."
+        },
+        "cpi.openOriginalUrl": {
+          "type": "boolean",
+          "default": false,
+          "description": "Open the original problem URL in the default browser when a problem starts."
+        },
+        "cpi.autoAdvanceAfterRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start the next due problem after rating the current problem."
+        },
+        "cpi.strictTwoEditorTabs": {
+          "type": "boolean",
+          "default": true,
+          "description": "Close the previous CPI-opened Markdown and C++ editors before opening the next problem."
+        },
+        "cpi.reopenPreviousEditorsOnUndo": {
+          "type": "boolean",
+          "default": false,
+          "description": "After undoing a review, reopen the previous problem's Markdown and the same C++ file used for that review."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "ts-fsrs": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.5.3"
+  }
+}
